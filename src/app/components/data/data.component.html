@@ -1,0 +1,155 @@
+<h4>Formularios <small>data</small></h4>
+<hr>
+<form  [formGroup]="forma" (ngSubmit)="guardarCambios()" >
+
+  <div  formGroupName="nombrecompleto" >
+      <div [ngClass]="{'has-danger': forma.get('nombrecompleto').invalid}" >
+       <div class="form-group row" [ngClass]="{'has-danger': !forma.get('nombrecompleto.nombre').valid}">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Nombre"
+               formControlName="nombre"
+               >
+               
+               <!-- primera forma -->
+               <!-- <div *ngIf="forma.controls['nombrecompleto'].controls.nombre.errors?.required" 
+                 
+               class="form-control-feedback">El nombres es necesario
+              </div> -->
+               <!-- <div *ngIf="forma.controls['nombrecompleto'].controls.nombre.errors?.minLength" 
+                 
+               class="form-control-feedback">Ingresar mas de 3 caracteres
+              </div> -->
+
+              <!-- forma sencilla -->
+              <div *ngIf="forma.get('nombrecompleto.nombre').errors" 
+                 
+               class="form-control-feedback">El nombres es necesario.
+               Ingresar mas de 3 caracteres
+              </div>
+                           
+               
+
+      </div>
+    
+      </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Apellido"
+               formControlName="apellido">
+      </div>
+    </div>
+  </div>
+  </div>
+
+  
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Correo</label>
+    <div class="col-md-8">
+
+      <input class="form-control"
+             type="email"
+             placeholder="Correo electrónico"
+             formControlName="correo"
+             >
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Usuario</label>
+    <div class="col-md-8">
+        <input
+        class="form-control"
+        placeholder="Usuario"
+        formControlName="username"
+        type="text">
+
+      </div>
+    </div>
+
+
+  <div class="form-group row">
+      <label class="col-2 col-form-label">Contraseña</label>
+      <div class="col-md-8">
+          <input
+          class="form-control"
+          placeholder="Contraseña"
+          formControlName="username"
+          type="text">
+
+        </div>
+      </div>
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Contraseña</label>
+    <div class="col-md-8">
+<input
+class="form-control"
+placeholder="Contraseña"
+formControlName="password1"
+type="password">
+
+  </div>
+  </div>
+  <div class="form-group row" >
+    <div [ngClass]="{'has-danger': forma.controls['password2'].touched && forma.controls['password2'].errors?.noIgual}">
+      <label class="col-2 col-form-label"></label>
+      <div class="col-md-8">
+  <input
+  class="form-control"
+  placeholder="Verificar contraseña"
+  formControlName="password2"
+  type="password">
+  <div
+  class="form-control-feedback"
+  *ngIf="forma.controls['password2'].touched && forma.controls['password2'].errors?.noIgual">       
+ Las contraseñas no coinciden.
+ </div>
+  
+    </div>
+  </div>
+    </div>
+    
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pasatiempos</label>
+    <div class="col-md-8"  formArrayName="pasatiempos">
+      <input 
+      *ngFor="let pasatiempo of forma.controls['pasatiempos'].controls, let i = index"
+      [formControlName]="i"
+      type="text"
+      class="form-control"
+      >
+    </div>
+  </div>
+
+  <div>
+    <button
+    (click)="agregarPasatiempo()"
+     type="button" 
+     class="bnt bnt-primary">Nuevo</button>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+  {{forma.valid}}
+  <br>
+  {{forma.status}}
+
+</form>
